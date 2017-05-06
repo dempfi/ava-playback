@@ -65,4 +65,4 @@ NODE_ENV=test ava
 
 
 ---
-Made with ❤️ by [@dempfi](https://github.com/dempfi)
+<div align="right"><sup>made with ❤️ by [@dempfi](https://github.com/dempfi)</sup></div>
