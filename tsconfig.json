@@ -5,12 +5,13 @@
     "inlineSourceMap": true,
     "noImplicitAny": true,
     "module": "commonjs",
-    "declaration": true,
+    "declaration": false,
     "baseUrl": "src/",
     "target": "es5",
     "rootDir": "src/",
     "outDir": "dist/",
     "lib": [
+      "es2015",
       "scripthost",
       "es2015.promise"
     ]
