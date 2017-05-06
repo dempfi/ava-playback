@@ -2,9 +2,9 @@
 
 ___
 
-Dealing with HTTP requests in the tests can be painful and what is more important error prone, since we have to stub everything by hand. There are few libraries to help with this situation, like [node-nock](https://github.com/node-nock/nock). But their setup is something complicated(I didn't manage to setup [node-nock](https://github.com/node-nock/nock) to record requests and play them back) and they require a lot of manual steps to write single test.
+Dealing with HTTP requests in the tests can be painful and what is more important error prone, since we have to stub everything by hand. There are few libraries to help with this situation, like [node-nock](https://github.com/node-nock/nock). But their setup is something complicated (I didn't manage to setup [node-nock](https://github.com/node-nock/nock) to record requests and play them back) and they require a lot of manual steps to write single test.
 
-**`ava-playback`** tries to help here. In `record` mode, when you write your test, you just allow your app to call real APIs and when you ready, you just switch from `record`([how?]()) to playback mode and it's done.
+**`ava-playback`** is here to help. In `record` mode, when you write your test, you just allow your app to call real APIs and when you ready, you just switch from `record`([how?]()) to playback mode and it's done 🎉
 
 
 ### Installation
