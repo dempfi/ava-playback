@@ -1,4 +1,4 @@
-![ava-playback-logo](http://i.imgur.com/FP71xh5.png)
+<p align="center"><img src="http://i.imgur.com/1vrCZff.png" height="360" width="360"/></p>
 
 ___
 
@@ -54,13 +54,13 @@ By default playbacks will be stored in root of your project in `/playbacks` fold
 When you write new test, you have to turn `ava-playback` into `record` mode. It's really easy, you just need to specify `env` variable `AVA_PLAYBACK` in `record`, like this.
 
 ```sh
-env NODE_ENV=test AVA_PLAYBACK=record ava "new-test-file.js"
+NODE_ENV=test AVA_PLAYBACK=record ava "new-test-file.js"
 ```
 
 But you need to turn `ava-playback` off when you finish writing new test. Just run ava without `AVA_PLAYBACK=record` env variable.
 
 ```sh
-env NODE_ENV=test AVA_PLAYBACK=record ava "new-test-file.js"
+NODE_ENV=test ava
 ```
 
 
