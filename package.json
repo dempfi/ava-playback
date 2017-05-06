@@ -5,9 +5,33 @@
   "main": "dist/index.js",
   "repository": "https://github.com/dempfi/ava-playback",
   "author": "Ike Ku <dempfi@yahoo.com>",
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "scripts": {
     "build": "rm -rf ./dist && tsc",
     "watch": "rm -rf ./dist && tsc -w --pretty"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "ava",
+    "http",
+    "mock",
+    "nock",
+    "playback",
+    "requests",
+    "test",
+    "testing"
+  ],
+  "dependencies": {
+    "lodash.escaperegexp": "^4.1.2",
+    "nock": "^9.0.13",
+    "pkg-conf": "^2.0.0",
+    "shorthash": "^0.0.2"
+  },
+  "devDependencies": {
+    "@types/lodash.escaperegexp": "^4.1.2",
+    "@types/nock": "^8.2.1",
+    "@types/node": "^7.0.18"
   }
 }
