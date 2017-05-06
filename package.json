@@ -25,14 +25,19 @@
     "testing"
   ],
   "dependencies": {
+    "json-stable-stringify": "^1.0.1",
     "lodash.escaperegexp": "^4.1.2",
     "nock": "^9.0.13",
     "pkg-conf": "^2.0.0",
     "shorthash": "^0.0.2"
   },
   "devDependencies": {
+    "@types/json-stable-stringify": "^1.0.31",
     "@types/lodash.escaperegexp": "^4.1.2",
     "@types/nock": "^8.2.1",
     "@types/node": "^7.0.18"
+  },
+  "peerDependencies": {
+    "typescript": "^2.3.2"
   }
 }

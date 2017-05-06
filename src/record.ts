@@ -2,6 +2,7 @@ import * as nock from 'nock'
 import * as path from 'path'
 import * as sh from 'shorthash'
 import * as fs from 'fs'
+import * as stringify from 'json-stable-stringify'
 
 const bind = (f: Function, ...args: any[]) => f.bind(null, ...args)
 
@@ -17,7 +18,7 @@ const saveRecord = (collection: string, record: nock.NockDefinition) => {
   if (!fs.existsSync(scopeFolder)) fs.mkdirSync(scopeFolder)
   const recordPath = path.join(scopeFolder, recordName(record))
   if (fs.existsSync(recordPath)) return
-  fs.writeFileSync(recordPath, JSON.stringify(record, null, 2), { encoding: 'utf8' })
+  fs.writeFileSync(recordPath, stringify(record, { space: 2 }), { encoding: 'utf8' })
 }
 
 const onMessage = (message: string, cb: () => void) =>
