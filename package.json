@@ -1,0 +1,13 @@
+{
+  "name": "ava-playback",
+  "version": "0.0.1",
+  "description": "Record and playback http requests with nock, integrated into ava",
+  "main": "dist/index.js",
+  "repository": "https://github.com/dempfi/ava-playback",
+  "author": "Ike Ku <dempfi@yahoo.com>",
+  "license": "Apache 2.0",
+  "scripts": {
+    "build": "rm -rf ./dist && tsc",
+    "watch": "rm -rf ./dist && tsc -w --pretty"
+  }
+}

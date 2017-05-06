@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "inlineSourceMap": true,
+    "noImplicitAny": true,
+    "module": "commonjs",
+    "declaration": true,
+    "baseUrl": "src/",
+    "target": "es5",
+    "rootDir": "src/",
+    "outDir": "dist/",
+    "lib": [
+      "scripthost",
+      "es2015.promise"
+    ]
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}
