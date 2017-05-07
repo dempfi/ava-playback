@@ -1,22 +1,25 @@
-import * as nock from 'nock'
-import * as path from 'path'
-import * as sh from 'shorthash'
-import * as fs from 'fs'
 import * as stringify from 'json-stable-stringify'
+import { parse } from 'querystring'
+import * as sh from 'shorthash'
+import * as nock from 'nock'
+import { join } from 'path'
+import * as fs from 'fs'
 
 const bind = (f: Function, ...args: any[]) => f.bind(null, ...args)
 
-const recordName = ({ method, path, body }: nock.NockDefinition) => {
-  const hash = sh.unique(body || 'empty')
-  const address = path.split('?')[0].replace(/\W+?/g, '_')
-  return `${method}${address}-${hash}.json`.toLowerCase()
+const domain = (s: string) => s.match(/^https?:\/\/[w.]*([\S][^\/:]+)/)![1]
+
+const recordTitle = ({ method, path, body }: nock.NockDefinition) => {
+  const [address, qs] = path.split('?')
+  const bodyHash = sh.unique(body || 'empty')
+  const qsHash = sh.unique(stringify(Object.keys(parse(qs)).sort()))
+  return `${method}${address.replace(/\W+?/g, '_')}-${qsHash}-${bodyHash}.json`.toLowerCase()
 }
 
 const saveRecord = (collection: string, record: nock.NockDefinition) => {
-  const scope = record.scope.match(/^https?:\/\/[w.]*([\S][^\/:]+)/)![1]
-  const scopeFolder = path.join(collection, scope)
+  const scopeFolder = join(collection, domain(record.scope))
   if (!fs.existsSync(scopeFolder)) fs.mkdirSync(scopeFolder)
-  const recordPath = path.join(scopeFolder, recordName(record))
+  const recordPath = join(scopeFolder, recordTitle(record))
   if (fs.existsSync(recordPath)) return
   fs.writeFileSync(recordPath, stringify(record, { space: 2 }), { encoding: 'utf8' })
 }

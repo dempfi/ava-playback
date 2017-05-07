@@ -9,5 +9,5 @@ const projectPath = path.dirname(config.filepath(avaConfing))
 const playbacksPath = path.join(projectPath, avaConfing.playbacks)
 
 if (!fs.existsSync(playbacksPath)) fs.mkdirSync(playbacksPath)
-if (process.env.AVA_PLAYBACKS === 'record') record(playbacksPath)
+if (process.env.AVA_PLAYBACK === 'record') record(playbacksPath)
 playback(playbacksPath)
