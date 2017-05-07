@@ -22,11 +22,14 @@
     "playback",
     "requests",
     "test",
-    "testing"
+    "testing",
+    "vcr",
+    "record"
   ],
   "dependencies": {
     "json-stable-stringify": "^1.0.1",
     "lodash.escaperegexp": "^4.1.2",
+    "lodash.isequalwith": "^4.4.0",
     "nock": "^9.0.13",
     "pkg-conf": "^2.0.0",
     "shorthash": "^0.0.2"
@@ -34,6 +37,7 @@
   "devDependencies": {
     "@types/json-stable-stringify": "^1.0.31",
     "@types/lodash.escaperegexp": "^4.1.2",
+    "@types/lodash.isequalwith": "^4.4.2",
     "@types/nock": "^8.2.1",
     "@types/node": "^7.0.18"
   },
