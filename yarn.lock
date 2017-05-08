@@ -12,9 +12,27 @@
   dependencies:
     "@types/lodash" "*"
 
+"@types/lodash.isarray@^4.0.2":
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/@types/lodash.isarray/-/lodash.isarray-4.0.2.tgz#700d1a08f782b5d54a4220f85165a00847d5bb32"
+  dependencies:
+    "@types/lodash" "*"
+
 "@types/lodash.isequalwith@^4.4.2":
   version "4.4.2"
   resolved "https://registry.yarnpkg.com/@types/lodash.isequalwith/-/lodash.isequalwith-4.4.2.tgz#7416ba116a66c0d2deb6de5cc035fe1d3f6b1235"
+  dependencies:
+    "@types/lodash" "*"
+
+"@types/lodash.isplainobject@^4.0.2":
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/@types/lodash.isplainobject/-/lodash.isplainobject-4.0.2.tgz#804df3a26b6dbc0d7191ee5f89d77a6a8e16e2a5"
+  dependencies:
+    "@types/lodash" "*"
+
+"@types/lodash.mapvalues@^4.6.2":
+  version "4.6.2"
+  resolved "https://registry.yarnpkg.com/@types/lodash.mapvalues/-/lodash.mapvalues-4.6.2.tgz#01cbebde5b588d0bd732e7ef93fa57ea717a6420"
   dependencies:
     "@types/lodash" "*"
 
@@ -114,9 +132,21 @@ lodash.escaperegexp@^4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/lodash.escaperegexp/-/lodash.escaperegexp-4.1.2.tgz#64762c48618082518ac3df4ccf5d5886dae20347"
 
+lodash.isarray@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/lodash.isarray/-/lodash.isarray-4.0.0.tgz#2aca496b28c4ca6d726715313590c02e6ea34403"
+
 lodash.isequalwith@^4.4.0:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/lodash.isequalwith/-/lodash.isequalwith-4.4.0.tgz#266726ddd528f854f21f4ea98a065606e0fbc6b0"
+
+lodash.isplainobject@^4.0.6:
+  version "4.0.6"
+  resolved "https://registry.yarnpkg.com/lodash.isplainobject/-/lodash.isplainobject-4.0.6.tgz#7c526a52d89b45c45cc690b88163be0497f550cb"
+
+lodash.mapvalues@^4.6.0:
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/lodash.mapvalues/-/lodash.mapvalues-4.6.0.tgz#1bafa5005de9dd6f4f26668c30ca37230cc9689c"
 
 lodash@~4.17.2:
   version "4.17.4"
