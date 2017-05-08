@@ -1,31 +1,52 @@
 import * as stringify from 'json-stable-stringify'
-import { parse } from 'querystring'
-import * as sh from 'shorthash'
+import { unique as shorthash } from 'shorthash'
+import * as qs from 'querystring'
 import * as nock from 'nock'
 import { join } from 'path'
 import * as fs from 'fs'
 
+type Definition = nock.NockDefinition & { queries: any }
+
+const lower = (s: string) => s.toLowerCase()
 const bind = (f: Function, ...args: any[]) => f.bind(null, ...args)
+const hash = (obj: any) => shorthash(stringify(obj))
 
-const domain = (s: string) => s.match(/^https?:\/\/[w.]*([\S][^\/:]+)/)![1]
+const escapePath = (path: string) =>
+  lower(path.replace(/\W+?/g, '_'))
 
-const recordTitle = ({ method, path, body }: nock.NockDefinition) => {
-  const [address, qs] = path.split('?')
-  const bodyHash = sh.unique(body || 'empty')
-  const qsHash = sh.unique(stringify(Object.keys(parse(qs)).sort()))
-  return `${method}${address.replace(/\W+?/g, '_')}-${qsHash}-${bodyHash}.json`.toLowerCase()
+const domain = (s: string) =>
+  s.match(/^https?:\/\/[w.]*([\S][^\/:]+)/)![1]
+
+const parse = (raw: string) => {
+  try { return JSON.parse(raw) } catch (e) { return qs.parse(raw) }
 }
 
-const saveRecord = (collection: string, record: nock.NockDefinition) => {
+const title = ({ method, path, body, queries }: Definition) => {
+  return `${lower(method)}${escapePath(path)}-${hash(queries)}-${hash(body)}.json`
+}
+
+const onMessage = (message: string, cb: () => void) => {
+  process.on('message', ({ name }: { name: string }) => {
+    if (name === message) cb()
+  })
+}
+
+const prepareRecord = ({ path, body, ...rest }: Definition) => Object.assign(rest, {
+  queries: qs.parse(path.split('?')[1]),
+  body: body ? parse(body) : body,
+  path: path.split('?')[0]
+})
+
+
+const saveRecord = (collection: string, record: Definition) => {
   const scopeFolder = join(collection, domain(record.scope))
   if (!fs.existsSync(scopeFolder)) fs.mkdirSync(scopeFolder)
-  const recordPath = join(scopeFolder, recordTitle(record))
+  record = prepareRecord(record)
+  const recordPath = join(scopeFolder, title(record))
   if (fs.existsSync(recordPath)) return
   fs.writeFileSync(recordPath, stringify(record, { space: 2 }), { encoding: 'utf8' })
 }
 
-const onMessage = (message: string, cb: () => void) =>
-  process.on('message', ({ name }: { name: string }) => name === message && cb())
 
 export default (collection: string) => {
   onMessage('ava-run', bind(nock.recorder.rec, { output_objects: true, dont_print: true }))
