@@ -57,7 +57,7 @@ When you write a new test, you have to turn `ava-playback` into `record` mode. I
 NODE_ENV=test AVA_PLAYBACK=record ava "new-test-file.js"
 ```
 
-But you need to turn `ava-playback` off when you finish writing a new test. Just run ava without `AVA_PLAYBACK=record` env variable.
+But you need to turn `ava-playback` off when you finish writing a new test. Just run ava without `AVA_PLAYBACK=record` env variable and `ava-playback` will reply to all outgoing requests.
 
 ```sh
 NODE_ENV=test ava

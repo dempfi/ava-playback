@@ -25,12 +25,6 @@ const title = ({ method, path, body, queries }: Definition) => {
   return `${lower(method)}${escapePath(path)}-${hash(queries)}-${hash(body)}.json`
 }
 
-const onMessage = (message: string, cb: () => void) => {
-  process.on('message', ({ name }: { name: string }) => {
-    if (name === message) cb()
-  })
-}
-
 const prepareRecord = ({ path, body, ...rest }: Definition) => Object.assign(rest, {
   queries: qs.parse(path.split('?')[1]),
   body: body ? parse(body) : body,
@@ -44,11 +38,13 @@ const saveRecord = (collection: string, record: Definition) => {
   record = prepareRecord(record)
   const recordPath = join(scopeFolder, title(record))
   if (fs.existsSync(recordPath)) return
+  console.log(`📼 [ava-playback] new playback is recorded: ${recordPath}`)
   fs.writeFileSync(recordPath, stringify(record, { space: 2 }), { encoding: 'utf8' })
 }
 
-
 export default (collection: string) => {
-  onMessage('ava-run', bind(nock.recorder.rec, { output_objects: true, dont_print: true }))
-  onMessage('ava-teardown', () => (nock.recorder.play() as any).map(bind(saveRecord, collection)))
+  nock.recorder.rec({ output_objects: true, dont_print: true })
+  process.on('message', ({ name }: { name: string }) => {
+    if (name === 'ava-teardown') (nock.recorder.play() as any).map(bind(saveRecord, collection))
+  })
 }
