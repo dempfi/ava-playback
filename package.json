@@ -1,6 +1,6 @@
 {
   "name": "ava-playback",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Record and playback http requests with nock, integrated into ava",
   "main": "dist/index.js",
   "repository": "https://github.com/dempfi/ava-playback",
