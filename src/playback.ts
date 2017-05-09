@@ -53,10 +53,8 @@ const recordsByScope = (scopeName: string) =>
     .map(readRecord)
     .map(defineMatchers)
 
-export default (playbacksPath: string) => {
-  console.log(`📼  [ava-playback] running in play mode. Using playbacks from ${playbacksPath}`)
+export default (playbacksPath: string) =>
   fs.readdirSync(playbacksPath)
     .map(join(playbacksPath))
     .map(recordsByScope)
     .map(definePersistent)
-}
