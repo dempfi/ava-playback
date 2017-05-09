@@ -10,6 +10,6 @@ const playbacksPath = path.join(projectPath, avaConfing.playbacks)
 
 if (!fs.existsSync(playbacksPath)) fs.mkdirSync(playbacksPath)
 
-const mode = process.env.AVA_PLAYBACK || 'play'
+const mode = process.env.AVA_PLAYBACK
 if (mode === 'record') record(playbacksPath)
 if (mode === 'play') playback(playbacksPath)

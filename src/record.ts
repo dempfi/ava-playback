@@ -38,11 +38,12 @@ const saveRecord = (collection: string, record: Definition) => {
   record = prepareRecord(record)
   const recordPath = join(scopeFolder, title(record))
   if (fs.existsSync(recordPath)) return
-  console.log(`📼 [ava-playback] new playback is recorded: ${recordPath}`)
+  console.log(`📼  [ava-playback] new playback is recorded: ${recordPath}`)
   fs.writeFileSync(recordPath, stringify(record, { space: 2 }), { encoding: 'utf8' })
 }
 
 export default (collection: string) => {
+  console.log('📼  [ava-playback] running in record mode')
   nock.recorder.rec({ output_objects: true, dont_print: true })
   process.on('message', ({ name }: { name: string }) => {
     if (name === 'ava-teardown') (nock.recorder.play() as any).map(bind(saveRecord, collection))

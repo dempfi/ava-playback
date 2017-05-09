@@ -36,7 +36,7 @@ Then in you `package.json` where you store your ava config just add a requiremen
 
 ### Playbacks location
 
-By default playbacks will be stored in root of your project in `/playbacks` folder, if you want to change the location just add `playbacks` settings in your `package.json`.
+By default playbacks will be stored in the root of your project in `/playbacks` folder, if you want to change the location just add `playbacks` settings in your `package.json`.
 
 ```json
   // ...
@@ -49,25 +49,40 @@ By default playbacks will be stored in root of your project in `/playbacks` fold
   // ...
 ```
 
-### Recording
+### Modes
+`ava-playback` uses env variable `AVA_PLAYBACK` to get information how it should run. If `AVA_PLAYBACK` isn't set, `ava-playback` will not do anything.
 
-When you write a new test, you have to turn `ava-playback` into `record` mode. It's really easy, you just need to specify `env` variable `AVA_PLAYBACK` in `record`, like this.
+- `AVA_PLAYBACK=record` record all new outgoing requests from your tests
+- `AVA_PLAYBACK=play` turn off HTTP/HTTPS connection and use playbacks to reply to the outgoing requests from the tests
+
+### Usage
+
+With `ava-playback` the flow of writing actual test can look like this.
+
+1. You write a new test and don't activate `ava-playback` in any mode.
+2. When the test is ready you run it one more time with `AVA_PLAYBACK=record` env variable. `ava-playback` will record only missing playbacks to playbacks location.
+3. You edit new playbacks according to your needs ([wildcard](#wildcards-and-security) auth tokens in the body or in the queries).
+4. Check all tests with `AVA_PLAYBACK=play` mode to verify they pass.
+5. Done 🚀
+
+To illustrate the flow take a look at this example
 
 ```sh
-NODE_ENV=test AVA_PLAYBACK=record ava "new-test-file.js"
-```
+# Write new test file
+NODE_ENV=test ava --watch 'new-test-file.js'
 
-But you need to turn `ava-playback` off when you finish writing a new test. Just run ava without `AVA_PLAYBACK=record` env variable and `ava-playback` will reply to all outgoing requests.
+# Record all playbacks required for 'new-test-file.js'
+NODE_ENV=test AVA_PLAYBACK=record ava 'new-test-file.js'
 
-```sh
-NODE_ENV=test ava
+# Check all tests together
+NODE_ENV=test AVA_PLAYBACK=play ava
 ```
 
 ### Wildcards and security
 
 By default `ava-playback` stores and plays back your requests by taking into account all queries and body. However, you can change this option to hide security information, like tokens in queries.
 
-For example, Slack API allows tokens to be in query params, like `slack.com/api/users.list?token=xoxb-XXXXXXXXXX-Z7RKNoLIKOXLPKqtxUy5IhJ5`. It's totally fine unless you don't want this token to be stored in git or be available in Travis ci. For those cases, you can use wildcards feature of `ava-playback`.
+For example, Slack API allows tokens to be in query params, like `slack.com/api/users.list?token=xoxb-XXXXXXXXXX-Z7RKNoLIKOXLPKqtxUy5IhJ5`. It's totally fine unless you don't want this token to be stored in git or be available in Travis-ci. For those cases, you can use wildcards feature of `ava-playback`.
 
 After recording the playback, in you playbacks folder you can find the file matching that request and edit a `path` entry from
 
@@ -92,7 +107,7 @@ so the file will look like this
 }
 ```
 
-and all future requests to slack api with anything in place of actual token will be catched by `ava-playback`.
+and all future requests to slack API with anything in place of the actual token will be caught by `ava-playback`.
 
 <details>
   <summary><strong>Wildcard substitution rules</strong></summary>
