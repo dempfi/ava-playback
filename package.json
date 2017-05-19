@@ -1,6 +1,6 @@
 {
   "name": "ava-playback",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Record and playback http requests with nock, integrated into ava",
   "main": "dist/index.js",
   "repository": "https://github.com/dempfi/ava-playback",
@@ -46,8 +46,5 @@
     "@types/lodash.mapvalues": "^4.6.2",
     "@types/nock": "^8.2.1",
     "@types/node": "^7.0.18"
-  },
-  "peerDependencies": {
-    "typescript": "^2.3.2"
   }
 }
