@@ -27,10 +27,9 @@ const title = ({ method, path, body, queries }: Definition) => {
 
 const prepareRecord = ({ path, body, ...rest }: Definition) => Object.assign(rest, {
   queries: qs.parse(path.split('?')[1]),
-  body: body ? parse(body) : body,
+  body: body && typeof body === 'string' ? parse(body) : body,
   path: path.split('?')[0]
 })
-
 
 const saveRecord = (collection: string, record: Definition) => {
   const scopeFolder = join(collection, domain(record.scope))
