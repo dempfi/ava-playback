@@ -9,7 +9,7 @@
     "baseUrl": "src/",
     "target": "es5",
     "rootDir": "src/",
-    "outDir": "dist/",
+    "outDir": "dest/",
     "lib": [
       "es2015",
       "scripthost",
@@ -18,6 +18,6 @@
   },
   "exclude": [
     "node_modules",
-    "dist"
+    "dest"
   ]
 }

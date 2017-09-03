@@ -2,16 +2,24 @@
   "name": "ava-playback",
   "version": "0.0.11",
   "description": "Record and playback http requests with nock, integrated into ava",
-  "main": "dist/index.js",
+  "main": "dest/index.js",
   "repository": "https://github.com/dempfi/ava-playback",
   "author": "Ike Ku <dempfi@yahoo.com>",
   "license": "Apache-2.0",
   "scripts": {
-    "build": "rm -rf ./dist && tsc",
-    "watch": "rm -rf ./dist && tsc -w --pretty"
+    "build": "rm -rf ./dest && tsc",
+    "pretest": "rm -rf ./dest && tsc",
+    "test": "ava",
+    "watch": "rm -rf ./dest && tsc -w --pretty"
+  },
+  "ava": {
+    "files": [
+      "dest/test/**/*.js"
+    ],
+    "babel": {}
   },
   "files": [
-    "dist",
+    "dest",
     "*.js"
   ],
   "keywords": [
@@ -45,6 +53,10 @@
     "@types/lodash.isplainobject": "^4.0.2",
     "@types/lodash.mapvalues": "^4.6.2",
     "@types/nock": "^8.2.1",
-    "@types/node": "^7.0.18"
+    "@types/node": "^7.0.18",
+    "@types/request-promise-native": "^1.0.6",
+    "ava": "^0.22.0",
+    "request-promise-native": "^1.0.4",
+    "typescript": "2.4.x"
   }
 }
