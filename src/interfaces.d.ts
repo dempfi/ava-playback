@@ -1,10 +1,13 @@
 import { RequestOptions, IncomingMessage, ClientRequest } from 'http'
 
-export type Callback = (res: IncomingMessage) => void
-export type Request = (options: RequestOptions, cb?: Callback) => ClientRequest
+export type Request = ClientRequest
+export type Options = RequestOptions
+export type Response = IncomingMessage
+export type Callback = (res: Response) => void
+export type RequestMaker = (options: Options, cb?: Callback) => Request
 export type Overrider = (
   protocol: string,
-  overridenRequest: Request,
-  options: string | RequestOptions,
+  overridenRequest: RequestMaker,
+  options: string | Options,
   callback?: Callback
-) => ClientRequest
+) => Request

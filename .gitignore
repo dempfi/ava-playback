@@ -4,5 +4,5 @@ test/tmp
 *.log
 *.cache
 /coverage
-dist
+dest
 .nyc_output

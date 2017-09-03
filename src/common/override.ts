@@ -1,6 +1,6 @@
-import { Overrider, Request } from '../interfaces'
+import { Overrider, RequestMaker } from '../interfaces'
 
-type Modules = { [p: string]: { request: Request, get: Request } }
+type Modules = { [p: string]: { request: RequestMaker, get: RequestMaker } }
 const modules: Modules = { http: require('http'), https: require('https') }
 
 export default (overrider: Overrider) =>
