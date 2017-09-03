@@ -1,6 +1,4 @@
-import * as URL from 'url'
 import record from './record'
-import { Options } from '../interfaces'
 import overrideNatives from '../common/override-natives'
 import normalizeOptions from '../common/normalize-options'
 

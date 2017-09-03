@@ -3,17 +3,21 @@ import { Options } from '../interfaces'
 
 const fromString = (str: string): Options => {
   const { hostname, port, path } = url.parse(str)
-  return { hostname, method: 'GET', port: Number(port), path, __recording__: false }
-}
-
-const setProto = (options: any) => {
-  options.proto = options.proto || (options._https_ ? 'https' : 'http')
+  return {
+    hostname,
+    method: 'GET',
+    port: Number(port),
+    __recording__: false,
+    __https__: false,
+    path,
+  }
 }
 
 export default (raw: Options | string, protocol: string): Options => {
   const options = typeof raw === 'string' ? fromString(raw) : raw
+  options.__https__ = protocol === 'https'
   options.method = options.method || 'GET'
-  options.port = options.port || ((options.protocol === 'http') ? 80 : 443)
+  options.port = options.port || (options.__https__ ? 443 : 80)
 
   if (options.host && !options.hostname) {
     if (options.host.split(':').length === 2)
@@ -27,6 +31,5 @@ export default (raw: Options | string, protocol: string): Options => {
   options.hostname = options.hostname.toLowerCase()
   options.host = options.host.toLowerCase()
 
-  setProto(options)
   return options
 }

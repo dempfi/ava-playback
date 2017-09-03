@@ -5,8 +5,7 @@ import record from '../recorder'
 record()
 
 test('Flow', async t => {
-  const response = await requet('https://api.github.com/repos/octokit/octokit.rb', {
+  const response = await requet.get('http://api.github.com/repos/octokit/octokit.rb', {
     headers: { 'user-agent': 'ava-playback' }, json: true })
-  console.log(Object.keys(response))
   t.true(typeof response === 'object')
 })
