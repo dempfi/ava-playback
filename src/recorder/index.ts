@@ -1,17 +1,14 @@
 import * as URL from 'url'
 import record from './record'
-import * as common from '../common'
 import { Options } from '../interfaces'
+import overrideNatives from '../common/override-natives'
+import normalizeOptions from '../common/normalize-options'
 
-const normalizeOptions = (options: string | Options) => {
-  if (typeof options !== 'string') return options
-  const { hostname, port, path } = URL.parse(options)
-  return { hostname, method: 'GET', port: Number(port), path }
-}
-
-export default () => common.override(
+export default () => overrideNatives(
   (protocol, overriddenRequest, rawOptions, callback) => {
-    const options = normalizeOptions(rawOptions)
+    const options = normalizeOptions(rawOptions, protocol)
+    if (options.__recording__) return overriddenRequest(options, callback)
+    options.__recording__ = true
 
     const request = overriddenRequest(options, response => {
       record(protocol, options, request, response)
@@ -21,4 +18,3 @@ export default () => common.override(
 
     return request
   })
-
