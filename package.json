@@ -33,7 +33,7 @@
     "lodash.isequalwith": "^4.4.0",
     "lodash.isplainobject": "^4.0.6",
     "lodash.mapvalues": "^4.6.0",
-    "nock": "^9.0.13",
+    "nock": "^9.0.24",
     "pkg-conf": "^2.0.0",
     "shorthash": "^0.0.2"
   },
@@ -45,6 +45,7 @@
     "@types/lodash.isplainobject": "^4.0.2",
     "@types/lodash.mapvalues": "^4.6.2",
     "@types/nock": "^8.2.1",
-    "@types/node": "^7.0.18"
+    "@types/node": "^7.0.18",
+    "typescript": "^2.5.3"
   }
 }

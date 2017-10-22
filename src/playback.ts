@@ -7,13 +7,15 @@ import {
   escapeRegExp as escape,
   isEqualWith as isEqual,
   mapValues,
-  isArray
+  isArray,
+  isString
 } from 'lodash'
 
 type Definition = nock.NockDefinition & { queries: any }
 
 const bind = (f: Function, ...args: any[]) => f.bind(null, ...args)
 const join = (str1: string) => (str2: string) => path(str1, str2)
+const isHex = (str: string) => /^[0-9A-Fa-f]{2,}$/.test(str)
 
 const definePersistent = (defs: nock.NockDefinition[]) =>
   nock.define(defs).map(m => m.persist())
@@ -36,7 +38,8 @@ const asteriskToRx = (value: any): any => {
   return value
 }
 
-const defineMatchers = ({ queries, ...def }: Definition) => Object.assign(def, {
+const defineMatchers = ({ queries, response, ...def }: Definition) => Object.assign(def, {
+  response: isString(response) && isHex(response) ? Buffer.from(response, 'hex').toString() : response,
   path: bind(pathMatcher, def.path, queries),
   body: asteriskToRx(def.body)
 })
