@@ -39,7 +39,7 @@ const asteriskToRx = (value: any): any => {
 }
 
 const defineMatchers = ({ queries, response, ...def }: Definition) => Object.assign(def, {
-  response: isString(response) && isHex(response) ? Buffer.from(response, 'hex').toString() : response,
+  response: isString(response) && isHex(response) ? Buffer.from(response, 'hex') : response,
   path: bind(pathMatcher, def.path, queries),
   body: asteriskToRx(def.body)
 })
