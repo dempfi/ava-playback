@@ -15,7 +15,7 @@ const escapePath = (path: string) =>
   lower(path.replace(/\W+?/g, '_'))
 
 const domain = (s: string) =>
-  s.match(/^https?:\/\/[w.]*([\S][^\/:]+)/)![1]
+  s.match(/^https?:\/\/(?:w{3}.)*([\S][^\/:]+)/)![1]
 
 const parse = (raw: string) => {
   try { return JSON.parse(raw) } catch (e) { return qs.parse(raw) }
