@@ -4,9 +4,16 @@ import * as config from 'pkg-conf'
 import playback from './playback'
 import record from './record'
 
-const avaConfing = config.sync<{ playbacks?: string }>('ava', { defaults: { playbacks: 'playbacks' } })
-const projectPath = path.dirname(config.filepath(avaConfing))
-const playbacksPath = path.join(projectPath, avaConfing.playbacks)
+const projectPath = __dirname
+
+let avaConfig
+if(fs.existsSync(path.join(__dirname, 'ava.config.js'))) {
+    avaConfig = require(path.join(projectPath, 'ava.config.js'))
+} else {
+    avaConfig = config.sync<{ playbacks?: string }>('ava', { defaults: { playbacks: 'playbacks' } })
+}
+
+const playbacksPath = path.join(projectPath, avaConfig.playbacks)
 
 if (!fs.existsSync(playbacksPath)) fs.mkdirSync(playbacksPath)
 
