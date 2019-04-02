@@ -7,7 +7,6 @@ import {
   escapeRegExp as escape,
   isEqualWith as isEqual,
   mapValues,
-  isArray,
   isString
 } from 'lodash'
 
@@ -33,7 +32,7 @@ const pathMatcher = (path: string, queries: any, matching: string) => {
 
 const asteriskToRx = (value: any): any => {
   if (value === '*') return /.*/gi
-  if (isArray(value)) return value.map(asteriskToRx)
+  if (Array.isArray(value)) return value.map(asteriskToRx)
   if (isObject(value)) return mapValues(value, asteriskToRx)
   return value
 }
