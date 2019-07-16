@@ -44,7 +44,7 @@ const saveRecord = (collection: string, record: Definition) => {
 export default (collection: string) => {
   console.log('📼  [ava-playback] running in record mode')
   nock.recorder.rec({ output_objects: true, dont_print: true })
-  process.on('message', ({ name }: { name: string }) => {
-    if (name === 'ava-teardown') (nock.recorder.play() as any).map(bind(saveRecord, collection))
+  process.on('exit', () => {
+     (nock.recorder.play() as any).map(bind(saveRecord, collection))
   })
 }

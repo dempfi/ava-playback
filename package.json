@@ -8,7 +8,8 @@
   "license": "Apache-2.0",
   "scripts": {
     "build": "rm -rf ./dist && tsc",
-    "watch": "rm -rf ./dist && tsc -w --pretty"
+    "watch": "rm -rf ./dist && tsc -w --pretty",
+    "prepare": "npm run build"
   },
   "files": [
     "dist",
